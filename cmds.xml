@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<commands>
+	<theme>
+		<name value="kaaris"/>
+		<audio name="puteuh" file="puteuh.mp3"/>
+		<audio name="puteuh2" file="puteuh2.mp3"/>
+		<audio name="27" file="27.mp3"/>
+	</theme>
+	<theme>
+		<name value="nozio"/>
+		<name value="nezioo"/>
+		<audio name="o" file="o.mp3"/>
+		<audio name="reup" file="reup.mp3"/>
+		<audio name="rire" file="rire.mp3"/>
+		<audio name="porte" file="porte.mp3"/>
+	</theme>
+	<theme>
+		<name value="renaud"/>
+		<audio name="debout" file="debout.mp3"/>
+		<audio name="banane" file="banane.mp3"/>
+	</theme>
+	<theme>
+		<name value="overwatch"/>
+		<name value="ow"/>
+		<audio name="skill" file="skill.mp3"/>
+		<audio name="12" file="12.mp3"/>
+	</theme>
+	<theme>
+		<name value="ok"/>
+		<name value="okay"/>
+		<audio name="ok" file="ok.mp3"/>
+	</theme>
+	<theme>
+		<name value="taymapute"/>
+		<audio name="vole" file="vole.mp3"/>
+	</theme>
+	<theme>
+		<name value="pasla"/>
+		<name value="tesou"/>
+		<audio name="pasla" file="pasla.mp3"/>
+	</theme>
+</commands>
