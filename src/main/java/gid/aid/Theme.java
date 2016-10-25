@@ -1,18 +1,15 @@
-/*
- * Decompiled with CFR 0_118.
- */
 package gid.aid;
 
 import java.util.Random;
 import java.util.Vector;
 
 public class Theme {
-    protected Vector<String> cmds = new Vector();
-    protected Vector<String> args = new Vector();
-    protected Vector<String> files = new Vector();
+    protected Vector<String> cmds = new Vector<String>();
+    protected Vector<String> args = new Vector<String>();
+    protected Vector<String> files = new Vector<String>();
 
     public boolean haveCommand(String cmd) {
-        for (String s : this.cmds) {
+        for (String s : cmds) {
             if (!cmd.equalsIgnoreCase(s)) continue;
             return true;
         }
@@ -20,21 +17,21 @@ public class Theme {
     }
 
     public String getAudio() {
-        if (this.files.size() != 0) {
-            int index = this.getRandomInt(this.files.size());
-            return this.files.get(index);
+        if (files.size() != 0) {
+            int index = getRandomInt(files.size());
+            return files.get(index);
         }
         return null;
     }
 
     public String getAudio(String arg) {
-        if (arg == null || this.args.size() == 0) {
-            return this.getAudio();
+        if (arg == null || args.size() == 0) {
+            return getAudio();
         }
         int i = 0;
-        while (i < this.args.size()) {
-            if (this.args.get(i).equalsIgnoreCase(arg)) {
-                return this.files.get(i);
+        while (i < args.size()) {
+            if (args.get(i).equalsIgnoreCase(arg)) {
+                return files.get(i);
             }
             ++i;
         }
@@ -47,23 +44,23 @@ public class Theme {
     }
 
     public void addCommand(String s) {
-        this.cmds.addElement(s);
+        cmds.addElement(s);
     }
 
     public void addArgument(String s) {
-        this.args.addElement(s);
+        args.addElement(s);
     }
 
     public void addFile(String s) {
-        this.files.addElement(s);
+        files.addElement(s);
     }
 
     public Vector<String> getCmds() {
-        return this.cmds;
+        return cmds;
     }
 
     public Vector<String> getArgs() {
-        return this.args;
+        return args;
     }
 }
 

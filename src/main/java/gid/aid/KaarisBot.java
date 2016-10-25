@@ -1,11 +1,7 @@
-/*
- * Decompiled with CFR 0_118.
- */
 package gid.aid;
 
 import gid.aid.AudioListener;
 import gid.aid.ManagerListener;
-import java.io.PrintStream;
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.api.events.EventDispatcher;
@@ -28,9 +24,9 @@ public class KaarisBot {
     }
 
     public void registerListeners() {
-        EventDispatcher dispatcher = this.client.getDispatcher();
-        dispatcher.registerListener(new AudioListener(this.client));
-        dispatcher.registerListener(new ManagerListener(this.client));
+        EventDispatcher dispatcher = client.getDispatcher();
+        dispatcher.registerListener(new AudioListener(client));
+        dispatcher.registerListener(new ManagerListener(client));
     }
 
     public static KaarisBot login(String token) {

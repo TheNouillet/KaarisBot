@@ -1,11 +1,6 @@
-/*
- * Decompiled with CFR 0_118.
- */
 package gid.aid;
 
 import java.io.File;
-import java.io.PrintStream;
-import java.util.List;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.api.events.EventSubscriber;
 import sx.blah.discord.handle.impl.events.ReadyEvent;
@@ -31,7 +26,7 @@ public class ManagerListener {
     public void onReady(ReadyEvent event) {
         try {
             Image img = Image.forFile(new File(imgUrl));
-            this.client.changeAvatar(img);
+            client.changeAvatar(img);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -44,7 +39,7 @@ public class ManagerListener {
         IGuild guild = event.getGuild();
         System.out.println("Somebody joined ... ");
         try {
-            IRole role = this.getRoleByName(guild, roleName);
+            IRole role = getRoleByName(guild, roleName);
             user.addRole(role);
         }
         catch (DiscordException | MissingPermissionsException | RateLimitException e) {
@@ -60,5 +55,7 @@ public class ManagerListener {
         }
         return role;
     }
+    
+    // TODO : parse config.xml for role name.
 }
 
