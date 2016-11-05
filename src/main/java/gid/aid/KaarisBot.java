@@ -8,9 +8,11 @@ import sx.blah.discord.api.events.EventDispatcher;
 import sx.blah.discord.util.DiscordException;
 
 public class KaarisBot {
+	// Singleton Bot Instance
     public static KaarisBot INSTANCE;
     public IDiscordClient client;
 
+    // Login, then register listeners
     public static void main(String[] args) {
         if (args.length < 1) {
             throw new IllegalArgumentException("This bot needs at least 1 argument!");
@@ -23,6 +25,7 @@ public class KaarisBot {
         this.client = client;
     }
 
+    // Here, we can register listeners to the bot.
     public void registerListeners() {
         EventDispatcher dispatcher = client.getDispatcher();
         dispatcher.registerListener(new AudioListener(client));

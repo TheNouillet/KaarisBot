@@ -13,6 +13,9 @@ import sx.blah.discord.util.Image;
 import sx.blah.discord.util.MissingPermissionsException;
 import sx.blah.discord.util.RateLimitException;
 
+/*
+ * The ManagerListener is in charge of automatically manage the discord server he is in (basically the "auto admin" feature of the bot)
+ */
 public class ManagerListener {
     private static String imgUrl = "avatar.png";
     private static String roleName = "Recrue";
@@ -22,6 +25,7 @@ public class ManagerListener {
         this.client = client;
     }
 
+    // Change the bot avatar to display an handsome boy that share good music with peoples ;)
     @EventSubscriber
     public void onReady(ReadyEvent event) {
         try {
@@ -33,6 +37,7 @@ public class ManagerListener {
         }
     }
 
+    // Each time a new user enter the server for the first time, the bot change his role to a predefined role.
     @EventSubscriber
     public void onUserJoin(UserJoinEvent event) {
         IUser user = event.getUser();
@@ -47,11 +52,14 @@ public class ManagerListener {
         }
     }
 
+    // Get the role according to its name
     private IRole getRoleByName(IGuild guild, String roleName) {
         IRole role = null;
         for (IRole r : guild.getRoles()) {
-            if (!r.getName().equals(roleName)) continue;
-            role = r;
+            if (r.getName().equals(roleName))
+            {            	
+            	role = r;
+            }
         }
         return role;
     }

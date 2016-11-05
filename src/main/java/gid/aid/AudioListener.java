@@ -24,6 +24,9 @@ import sx.blah.discord.util.RateLimitException;
 import sx.blah.discord.util.audio.AudioPlayer;
 import sx.blah.discord.util.audio.events.TrackFinishEvent;
 
+/*
+ * The AudioListener is the listener in charge of the "audio response" feature of the bot 
+ */
 public class AudioListener {
     private String botPrefix = "!";
     private IVoiceChannel voiceChannel = null;
@@ -32,12 +35,14 @@ public class AudioListener {
     private IDiscordClient client;
     private final String FILENAME = "cmds.xml";
 
+    // Initialize + update
     public AudioListener(IDiscordClient client) {
         this.client = client;
         themes = new Vector<Theme>();
         update();
     }
 
+    // Each time someone send a message on a channel the bot have access to, the bot reads and can interpret it as a command.
     @EventSubscriber
     public void onMessageReceivedEvent(MessageReceivedEvent event) throws MissingPermissionsException, RateLimitException, DiscordException, IOException, UnsupportedAudioFileException, InterruptedException {
     	IMessage message = event.getMessage();
@@ -46,13 +51,16 @@ public class AudioListener {
         	String[] args = command.split("");
         	if(args.length > 0) {        		
         		//Right now, we have at least a "!command"
+        		// If the command is "!update"
         		if (args[0].equalsIgnoreCase("update")) {
         			update();
         			new MessageBuilder(client).appendContent("Commands updated !").withChannel(message.getChannel()).build();
+        		// If the command is "!help <something>"
         		} else if (args[0].equalsIgnoreCase("help")) {
         			helpCommand(args, message.getChannel());
         		} else {
         			String fileName = getFileFromThemes(args);
+        			// If an audio file is corresponding to the command, the bot connect to a channel and plays it !
         			if (fileName != null) {
         				voiceChannel = message.getAuthor().getConnectedVoiceChannels().get(0);
         				voiceChannel.join();
@@ -63,6 +71,7 @@ public class AudioListener {
         }
     }
 
+    // Print a message to display available commands from the XML file.
     private void helpCommand(String[] args, IChannel channel) {
         if (themes.size() > 1) {
             MessageBuilder builder = new MessageBuilder(client);
@@ -80,6 +89,7 @@ public class AudioListener {
         }
     }
 
+    // Help proceedure for a "!help" command
     private void printHelp(MessageBuilder builder) {
         for (Theme t : themes) {
             builder.appendContent("Theme : ");
@@ -96,6 +106,7 @@ public class AudioListener {
         builder.appendContent("Type !help <command> for arguments list.");
     }
 
+    // Help procedure for a "!help arg" command
     private void printHelpWithCommand(String[] args, MessageBuilder builder) {
         String cmd = args[1];
         Theme t = null;
@@ -115,14 +126,18 @@ public class AudioListener {
         }
     }
 
+    // Does my string list contains another string, while ignoring case ?
     private boolean containsIgnoreCase(Vector<String> strings, String str) {
         for (String s : strings) {
-            if (!s.equalsIgnoreCase(str)) continue;
-            return true;
+            if (s.equalsIgnoreCase(str))
+            {            	
+            	return true;
+            }
         }
         return false;
     }
 
+    // Return an audio file path if one of the theme have this command, else return null.
     private String getFileFromThemes(String[] args) {
         int i = 0;
         while (i < themes.size()) {
@@ -137,6 +152,7 @@ public class AudioListener {
         return null;
     }
 
+    // Play an audio from file to the connected channel
     private void playAudioFromFile(String s_file, IGuild guild) throws IOException, UnsupportedAudioFileException {
         File file = new File(s_file);
         if (player == null) {
@@ -145,6 +161,7 @@ public class AudioListener {
         player.queue(file);
     }
 
+    // Each time an audio file have finished playing, the bot will consider leaving, if it has no audio remaining in its queue.
     @EventSubscriber
     public void onTrackFinishedEvent(TrackFinishEvent event) {
         System.out.println("Track finished");
@@ -153,6 +170,7 @@ public class AudioListener {
         }
     }
 
+    // Update the command list and audio files from the XML file.
     private void update() {
         themes.clear();
         try {
