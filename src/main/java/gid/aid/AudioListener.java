@@ -46,9 +46,10 @@ public class AudioListener {
     @EventSubscriber
     public void onMessageReceivedEvent(MessageReceivedEvent event) throws MissingPermissionsException, RateLimitException, DiscordException, IOException, UnsupportedAudioFileException, InterruptedException {
     	IMessage message = event.getMessage();
+    	System.out.println("Received message : " + event.getMessage().getContent());
         if (message.getContent().startsWith(botPrefix)) {
         	String command = message.getContent().replaceFirst(botPrefix, "");
-        	String[] args = command.split("");
+        	String[] args = command.split(" ");
         	if(args.length > 0) {        		
         		//Right now, we have at least a "!command"
         		// If the command is "!update"
@@ -73,6 +74,7 @@ public class AudioListener {
 
     // Print a message to display available commands from the XML file.
     private void helpCommand(String[] args, IChannel channel) {
+    	System.out.println("Invoked help command");
         if (themes.size() > 1) {
             MessageBuilder builder = new MessageBuilder(client);
             if (args.length > 1) {
